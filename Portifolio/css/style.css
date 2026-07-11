@@ -1,0 +1,620 @@
+/* =====================================================================
+   PORTFÓLIO — Henrique Liguori Imbernon (RU 3194188)
+   Sistema visual inspirado em diagramas esquemáticos de engenharia:
+   fundo tipo "papel de projeto", traços de circuito e cor de cobre/âmbar
+   como destaque, remetendo à eletrônica de potência.
+   ===================================================================== */
+
+/* ---------- 1. TOKENS DE DESIGN (variáveis CSS) ---------- */
+:root {
+  /* Tema escuro (padrão): azul "blueprint" profundo */
+  --bg: #0B1E2D;
+  --bg-panel: #12283A;
+  --bg-panel-2: #17334A;
+  --text: #E7EEF3;
+  --text-muted: #8FA7B8;
+  --accent: #E8A33D;       /* cobre/âmbar — remete a fiação e alerta elétrico */
+  --accent-contrast: #1B1200;
+  --accent-2: #45C7C0;     /* ciano de traço de osciloscópio */
+  --danger: #E8654A;
+  --success: #4CAF7D;
+  --border: rgba(143, 167, 184, 0.22);
+  --grid-line: rgba(143, 167, 184, 0.08);
+  --shadow: 0 18px 40px rgba(3, 10, 18, 0.35);
+
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --radius: 10px;
+  --max-width: 1120px;
+}
+
+/* Tema claro: papel vegetal / prancheta de projeto */
+[data-theme="light"] {
+  --bg: #F2EEE3;
+  --bg-panel: #FFFFFF;
+  --bg-panel-2: #FBF7EC;
+  --text: #1B2A35;
+  --text-muted: #5B6B76;
+  --accent: #C97A2E;
+  --accent-contrast: #FFFFFF;
+  --accent-2: #1C8C90;
+  --border: rgba(27, 42, 53, 0.14);
+  --grid-line: rgba(27, 42, 53, 0.06);
+  --shadow: 0 18px 40px rgba(27, 42, 53, 0.10);
+}
+
+/* ---------- 2. RESET BÁSICO ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px; /* compensa o header fixo ao usar âncoras */
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  transition: background-color .3s ease, color .3s ease;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+ul, ol { list-style: none; }
+
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; }
+
+/* Respeita preferência do usuário por menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* ---------- 3. CABEÇALHO / NAVEGAÇÃO ---------- */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+
+.logo-node {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+  flex-shrink: 0;
+}
+
+.logo-sub {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-link {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  position: relative;
+  padding: 6px 2px;
+}
+
+.nav-link:hover, .nav-link:focus-visible { color: var(--text); }
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 2px; width: 0;
+  background: var(--accent);
+  transition: width .25s ease;
+}
+
+.nav-link:hover::after, .nav-link:focus-visible::after { width: 100%; }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Interruptor de tema estilizado como disjuntor elétrico */
+.breaker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+}
+
+.breaker-track {
+  width: 38px; height: 20px;
+  border-radius: 999px;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border);
+  position: relative;
+  transition: background-color .25s ease;
+}
+
+.breaker-knob {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: transform .25s ease;
+}
+
+[data-theme="light"] .breaker-knob { transform: translateX(18px); }
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.menu-toggle span {
+  width: 22px; height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+/* ---------- 4. HERO ---------- */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 24px 80px;
+  overflow: hidden;
+}
+
+/* Malha de fundo tipo papel milimetrado, remete a esquemático */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse at 30% 30%, black 45%, transparent 78%);
+}
+
+.hero-content {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--max-width);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent-2);
+  margin-bottom: 18px;
+  letter-spacing: 0.03em;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+  font-weight: 700;
+  max-width: 14ch;
+  margin-bottom: 24px;
+}
+
+.hero h1 .accent { color: var(--accent); }
+
+.hero-lead {
+  max-width: 56ch;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  margin-bottom: 34px;
+}
+
+.hero-lead strong { color: var(--text); }
+
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Traço de osciloscópio: elemento de assinatura, desenhado com animação */
+.scope-trace {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 90px;
+  opacity: 0.9;
+}
+
+.scope-trace polyline {
+  fill: none;
+  stroke: var(--accent-2);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: draw-trace 2.6s ease-out forwards .4s;
+}
+
+@keyframes draw-trace {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ---------- 5. BOTÕES ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.94rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform .18s ease, background-color .18s ease, border-color .18s ease;
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-ghost:hover { border-color: var(--accent); }
+
+.btn-block { width: 100%; }
+
+/* ---------- 6. SEÇÕES GERAIS ---------- */
+.section { padding: 96px 24px; }
+.section-alt { background: var(--bg-panel); }
+
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-heading { margin-bottom: 48px; max-width: 60ch; }
+
+.tag-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--accent-2);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.section-heading h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
+
+.section-lead { color: var(--text-muted); margin-top: 12px; }
+
+.mini-heading {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin: 28px 0 14px;
+}
+
+.chip-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+}
+
+.chip-list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 9px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent-2);
+}
+
+.chip-list-inline { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+.chip-list-inline li { padding-left: 20px; }
+
+/* ---------- 7. SOBRE MIM ---------- */
+.about-body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.about-avatar {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+.avatar-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;      /* recorta a foto mantendo proporção, sem distorcer */
+  border-radius: 50%;     /* deixa a foto redonda */
+  border: 3px solid var(--accent);
+  display: block;
+}
+
+.about-text p { margin-bottom: 16px; color: var(--text-muted); max-width: 68ch; }
+.about-text p strong { color: var(--text); }
+
+/* ---------- 8. FORMAÇÃO (linha do tempo) ---------- */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+  border-left: 2px solid var(--border);
+  max-width: 68ch;
+}
+
+.timeline-item { position: relative; padding-bottom: 36px; }
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-marker {
+  position: absolute;
+  left: -34px; top: 4px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--bg);
+}
+
+.timeline-meta {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-2);
+  margin: 4px 0 8px;
+}
+
+.timeline-content p:last-child { color: var(--text-muted); }
+
+.languages-box { margin-top: 44px; }
+
+/* ---------- 9. PORTFÓLIO ---------- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.project-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: var(--accent);
+}
+
+.project-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.project-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+.project-card p { color: var(--text-muted); font-size: 0.94rem; margin-bottom: 16px; flex-grow: 1; }
+
+.tech-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+
+.tech-list li {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: var(--bg-panel-2);
+  color: var(--text-muted);
+}
+
+.project-link {
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.project-link:hover { text-decoration: underline; }
+
+/* ---------- 10. CONTATO ---------- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.contact-info { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+
+.contact-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-2);
+  margin-bottom: 2px;
+}
+
+.contact-info a:hover { text-decoration: underline; }
+
+.contact-form {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+
+.form-field label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.form-field input, .form-field textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  resize: vertical;
+  transition: border-color .18s ease;
+}
+
+.form-field input:focus, .form-field textarea:focus {
+  outline: none;
+  border-color: var(--accent-2);
+}
+
+.form-field.has-error input, .form-field.has-error textarea {
+  border-color: var(--danger);
+}
+
+.field-error {
+  min-height: 1em;
+  font-size: 0.78rem;
+  color: var(--danger);
+}
+
+/* ---------- 11. MODAL DE CONFIRMAÇÃO ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 12, 18, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+.modal[hidden] { display: none; }
+
+.modal-box {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.modal-box h3 { margin-bottom: 12px; color: var(--success); }
+.modal-box p { color: var(--text-muted); margin-bottom: 22px; }
+
+/* ---------- 12. RODAPÉ ---------- */
+.site-footer {
+  text-align: center;
+  padding: 32px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---------- 13. RESPONSIVO ---------- */
+@media (max-width: 860px) {
+  .about-body { grid-template-columns: 1fr; }
+  .about-avatar { width: 120px; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .menu-toggle { display: flex; }
+
+  .main-nav {
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+  }
+
+  .main-nav.open { max-height: 300px; }
+
+  .main-nav ul {
+    flex-direction: column;
+    padding: 12px 24px 20px;
+    gap: 4px;
+  }
+
+  .nav-link { display: block; padding: 12px 0; }
+
+  .breaker-label { display: none; }
+}

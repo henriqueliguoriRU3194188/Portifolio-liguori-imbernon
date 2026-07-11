@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Henrique Liguori Imbernon | Portfólio Pessoal</title>
+  <meta name="description" content="Portfólio pessoal de Henrique Liguori Imbernon, engenheiro eletricista e desenvolvedor de software.">
+
+  <!-- Fontes: Space Grotesk (títulos), Inter (corpo de texto), IBM Plex Mono (rótulos técnicos) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===================== CABEÇALHO / MENU FIXO ===================== -->
+  <header class="site-header" id="topo">
+    <div class="header-inner">
+      <a href="#topo" class="logo" aria-label="Página inicial">
+        <span class="logo-node" aria-hidden="true"></span>
+        <span class="logo-text">Henrique Liguori Imbernon<span class="logo-sub">RU 3194188</span></span>
+      </a>
+
+      <!-- Menu de navegação: mesmo em todas as seções, usando âncoras (#id) -->
+      <nav class="main-nav" id="mainNav" aria-label="Navegação principal">
+        <ul>
+          <li><a href="#sobre" class="nav-link">Sobre mim</a></li>
+          <li><a href="#formacao" class="nav-link">Formação</a></li>
+          <li><a href="#portfolio" class="nav-link">Portfólio</a></li>
+          <li><a href="#contato" class="nav-link">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Interruptor de tema claro/escuro, estilizado como disjuntor -->
+        <button id="themeToggle" class="breaker" type="button" aria-pressed="false" aria-label="Alternar tema claro/escuro">
+          <span class="breaker-track">
+            <span class="breaker-knob"></span>
+          </span>
+          <span class="breaker-label">MODO</span>
+        </button>
+
+        <!-- Botão hambúrguer para menu mobile -->
+        <button id="menuToggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================== HERO / ABERTURA ===================== -->
+    <section class="hero">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="eyebrow">// engenharia elétrica + software</p>
+        <h1>Ligando circuitos <br> e <span class="accent">linhas de código.</span></h1>
+        <p class="hero-lead">
+          Sou <strong>Henrique Liguori Imbernon</strong>, engenheiro eletricista e desenvolvedor
+          de software baseado em Jaraguá do Sul (SC). Crio ferramentas profissionais para
+          eletrônica de potência e automação industrial, unindo teoria de engenharia e
+          programação no dia a dia dos meus projetos.
+        </p>
+        <div class="hero-actions">
+          <a href="#portfolio" class="btn btn-primary">Ver portfólio</a>
+          <a href="#contato" class="btn btn-ghost">Entrar em contato</a>
+        </div>
+      </div>
+
+      <!-- Traço de osciloscópio: elemento de assinatura visual, desenhado via JS/CSS -->
+      <svg class="scope-trace" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+        <polyline id="scopeLine" points="0,60 80,60 100,20 130,100 160,60 240,60 260,30 290,90 320,60 1000,60" />
+      </svg>
+    </section>
+
+    <!-- ===================== SEÇÃO: SOBRE MIM ===================== -->
+    <section id="sobre" class="section">
+      <div class="section-inner about-grid">
+        <div class="section-heading">
+          <span class="tag-label">01 · Identificação</span>
+          <h2>Sobre mim</h2>
+        </div>
+
+        <div class="about-body">
+          <div class="about-avatar">
+            <!-- Foto de perfil: troque "assets/foto-perfil.jpg" pelo caminho real do seu arquivo -->
+            <img src="assets/foto-perfil.jpeg" alt="Foto de Henrique Liguori Imbernon" class="avatar-photo">
+          </div>
+
+          <div class="about-text">
+            <p>
+              Meu nome é <strong>Henrique Liguori Imbernon</strong> (RU 3194188), sou engenheiro
+              eletricista e desenvolvedor de software, baseado em Jaraguá do Sul, Santa Catarina.
+              Atuo na fronteira entre a engenharia elétrica e o desenvolvimento de software,
+              projetando e simulando sistemas de eletrônica de potência e automação industrial,
+              e transformando esse conhecimento em ferramentas de desktop profissionais.
+            </p>
+            <p>
+              Também gosto de produzir conteúdo educacional sobre elétrica residencial e
+              industrial, eletrônica, programação e inteligência artificial. Gosto de unir
+              teoria aplicada e código para criar simuladores, calculadoras e sistemas de
+              supervisão que resolvem problemas reais de engenharia.
+            </p>
+
+            <h3 class="mini-heading">Hobbies &amp; interesses</h3>
+            <ul class="chip-list">
+              <li>Produção de conteúdo educacional em vídeo</li>
+              <li>Simulação de circuitos de potência</li>
+              <li>Desenvolvimento de ferramentas em Python/PyQt5</li>
+              <li>Estudo de normas técnicas (NBR, IEC, ANSI)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SEÇÃO: FORMAÇÃO ===================== -->
+    <section id="formacao" class="section section-alt">
+      <div class="section-inner">
+        <div class="section-heading">
+          <span class="tag-label">02 · Trilha técnica</span>
+          <h2>Formação</h2>
+        </div>
+
+        <!-- Linha do tempo: faz sentido aqui pois representa uma sequência real de formação -->
+        <ol class="timeline">
+          <li class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-content">
+              <h3>Engenharia de Software</h3>
+              <p class="timeline-meta">Bacharelado</p>
+              <p>Formação voltada à engenharia de sistemas, arquitetura de aplicações e
+                desenvolvimento de software profissional aplicado a soluções de engenharia.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-content">
+              <h3>Engenharia Elétrica</h3>
+              <p class="timeline-meta">Bacharelado</p>
+              <p>Base em sistemas de potência, acionamentos, proteção elétrica e eletrônica de
+                potência aplicados à indústria.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <div class="timeline-content">
+              <h3>Tecnologia em Automação Industrial</h3>
+              <p class="timeline-meta">Tecnólogo</p>
+              <p>Fundamentos de automação, controle de processos e integração entre sistemas
+                elétricos e industriais.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="languages-box">
+          <h3 class="mini-heading">Idiomas</h3>
+          <ul class="chip-list chip-list-inline">
+            <li>Português — nativo</li>
+            <li>Inglês técnico — leitura de normas e documentação de engenharia</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SEÇÃO: PORTFÓLIO ===================== -->
+    <section id="portfolio" class="section">
+      <div class="section-inner">
+        <div class="section-heading">
+          <span class="tag-label">03 · Projetos</span>
+          <h2>Portfólio</h2>
+          <p class="section-lead">Uma seleção de ferramentas e sistemas que desenvolvi unindo
+            engenharia elétrica aplicada e software.</p>
+        </div>
+
+        <div class="project-grid">
+
+          <article class="project-card">
+            <p class="project-tag">Eletrônica de potência</p>
+            <h3>Electrical Builder PRO</h3>
+            <p>Simulador de eletrônica de potência estilo PSIM, desenvolvido em Python/PyQt5.
+              Inclui modelagem de transformadores e motores a partir de datasheets WEG,
+              diagnóstico de ressonância de filtros senoidais em inversores NPC e modelagem de
+              saturação de núcleo.</p>
+            <ul class="tech-list">
+              <li>Python</li><li>PyQt5</li><li>Simulação numérica</li>
+            </ul>
+            <!-- Substitua pelo link real do repositório/publicação do projeto -->
+            <a href="#" class="project-link">Ver detalhes →</a>
+          </article>
+
+          <article class="project-card">
+            <p class="project-tag">Simulação</p>
+            <h3>EletriSim</h3>
+            <p>Ferramenta de simulação de circuitos elétricos residenciais, construída em
+              PyQt5, voltada ao estudo prático de instalações elétricas.</p>
+            <ul class="tech-list">
+              <li>Python</li><li>PyQt5</li>
+            </ul>
+            <a href="#" class="project-link">Ver detalhes →</a>
+          </article>
+
+          <article class="project-card">
+            <p class="project-tag">Instalações elétricas</p>
+            <h3>DimCabo Pro</h3>
+            <p>Dimensionamento de cabos conforme a NBR 5410, com suporte a condutores de
+              alumínio, fatores de demanda e exportação de relatórios em PDF.</p>
+            <ul class="tech-list">
+              <li>Python</li><li>NBR 5410</li><li>Exportação PDF</li>
+            </ul>
+            <a href="#" class="project-link">Ver detalhes →</a>
+          </article>
+
+          <article class="project-card">
+            <p class="project-tag">Proteção elétrica</p>
+            <h3>Suite de Estudos de Proteção MT</h3>
+            <p>Conjunto de ferramentas para estudos de seletividade em média tensão, com curvas
+              de relé conforme IEC 60255 / IEEE C37.112 e análise de coordenação em cascata.</p>
+            <ul class="tech-list">
+              <li>Python</li><li>IEC 60255</li><li>IEEE C37.112</li>
+            </ul>
+            <a href="#" class="project-link">Ver detalhes →</a>
+          </article>
+
+          <article class="project-card">
+            <p class="project-tag">Automação industrial</p>
+            <h3>HMI Modbus</h3>
+            <p>Aplicação de supervisão industrial em PyQt5 com comunicação Modbus, gráficos de
+              tendência, strip charts e geração de relatórios de operação.</p>
+            <ul class="tech-list">
+              <li>Python</li><li>PyQt5</li><li>Modbus</li>
+            </ul>
+            <a href="#" class="project-link">Ver detalhes →</a>
+          </article>
+
+          <article class="project-card">
+            <p class="project-tag">Desenvolvimento web &amp; jogos</p>
+            <h3>Pegue o Ladrão</h3>
+            <p>Jogo 2D desenvolvido com HTML5 Canvas, ambientado em Ouro Preto, explorando
+              lógica de colisão, controle de personagem e renderização em tempo real.</p>
+            <ul class="tech-list">
+              <li>HTML5</li><li>Canvas API</li><li>JavaScript</li>
+            </ul>
+            <a href="#" class="project-link">Ver detalhes →</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SEÇÃO: CONTATO ===================== -->
+    <section id="contato" class="section section-alt">
+      <div class="section-inner contact-grid">
+        <div class="section-heading">
+          <span class="tag-label">04 · Conexão</span>
+          <h2>Contato</h2>
+          <p class="section-lead">Tem um projeto, dúvida técnica ou proposta? Envie uma
+            mensagem pelo formulário abaixo.</p>
+
+          <ul class="contact-info">
+            <li>
+              <span class="contact-label">E-mail</span>
+              <!-- Substitua pelo seu e-mail pessoal -->
+              <a href="mailto:henrique.liguori@gmail.com">henrique.liguori@gmail.com</a>
+            </li>
+            <li>
+              <span class="contact-label">Local</span>
+              <span>Jaraguá do Sul, Santa Catarina — Brasil</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Formulário de contato: validação e envio são tratados em js/script.js -->
+        <form id="contactForm" class="contact-form" novalidate>
+          <!-- Web3Forms: chave de acesso gratuita (obtida em https://web3forms.com).
+               Não é uma chave secreta — funciona como um "apelido" do seu e-mail. -->
+          <input type="hidden" id="accessKey" name="access_key" value="80fc0bf7-bf56-4962-ae7d-50586318a227">
+
+          <div class="form-field">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" autocomplete="name" required>
+            <span class="field-error" id="erroNome" role="alert"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+            <span class="field-error" id="erroEmail" role="alert"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+            <span class="field-error" id="erroMensagem" role="alert"></span>
+          </div>
+
+          <!-- Mensagem de erro geral (ex.: falha de conexão ao enviar) -->
+          <p class="field-error" id="erroEnvio" role="alert"></p>
+
+          <button type="submit" class="btn btn-primary btn-block" id="btnEnviar">Enviar mensagem</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== RODAPÉ ===================== -->
+  <footer class="site-footer">
+    <p>&copy; <span id="anoAtual"></span> Henrique Liguori Imbernon — RU 3194188. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Modal de confirmação de envio, controlado via JS -->
+  <div id="confirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-box">
+      <h3 id="modalTitle">Mensagem enviada com sucesso!</h3>
+      <p>Obrigado pelo contato. Retornarei o mais breve possível.</p>
+      <button type="button" class="btn btn-primary" id="modalCloseBtn">Fechar</button>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
